@@ -1,0 +1,16 @@
+<h3 class="sb-theme sb-title-action">Add a comment</h3>
+{% if post is defined %}
+{{ partial("partials/single-posts") }}
+{% if idPost is defined AND commentAdded is not defined%}
+<h3>New comment</h3>
+<form method="post" action="/comments/{{ idPost }}" autocomplete="OFF" class="sb-theme sb-form-comment-edit" id="add-comment-form" name="addComment">	
+	<input type="hidden"  name="{{ formTokenKey }}" value="{{ formToken }}"/>
+	{{ partial("partials/fields-comment-form") }}
+	<button name="addComment" type="submit" value="addComment" >Send</button>
+</form>
+{% endif %}
+
+{% else %}
+<p>The post doesn t exist</p>
+{% endif %}
+{{ partial("partials/comments-list") }}

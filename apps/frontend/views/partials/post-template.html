@@ -1,0 +1,44 @@
+<div id="sb-post-template">
+	<div class="sb-theme sb-post-container">
+		<hr>	
+		<p>Tag<a href="/tag-date/{dateCategoryLink}" class="sb-theme sb-tag-category">{dateCategory}</a></p>
+		<h1 class="sb-theme sb-post-title">{title}</h1>
+		<h2 class="sb-theme sb-post-author">By<label>{authorName}</label></h2>
+		<h3 class="sb-theme sb-post-date">Posted on<label>{prettyDateTime}</label></h3>
+		<div class="sb-theme sb-post-excerpt">{excerpt}</div>
+		<p><a class="sb-theme sb-button sb-default sb-link" href="/posts/{postId}">Read more</a></p>
+		<p>
+			<span class="sb-theme sb-badge">Comments<label>{totalComments}</label></span>
+			<a class="sb-theme sb-button sb-default sb-link sb-logged" href="/posts/{idPost}">Add comment</a>
+			<a class="sb-theme sb-button sb-default sb-link sb-loggin" href="/login">Please login to add a comment</a>
+		</p>
+	</div>
+	<div class="sb-theme sb-post-container-edit">
+		<hr>	
+		<p>Tag<a href="/tag-date/{dateCategoryLink}" class="sb-theme sb-tag-category">{dateCategory}</a></p>
+		<form method="post" action="/update-post" autocomplete="off" class="sb-theme sb-form-comment-edit">	
+			<input type="hidden" data-input-role="csrf-token" name="{formTokenKey}" value="{formToken}"/>	
+			<input type="hidden"  name="idPost" value="{idPost}"/>	
+			<dl>
+				<dt>Title<span class="sb-theme sb-required">*</span></dt>
+				<dd><input type="text" name="title" class="sb-theme sb-input-title" value="{title}"/></dd>		
+			</dl>
+			<dl>
+				<dt>Excerpt<span class="sb-theme sb-required">*</span></dt>
+				<dd><input type="text" name="excerpt" class="sb-theme sb-input-title" value="{excerpt}"/></dd>		
+			</dl>
+			<dl>
+				<dt>Content<span class="sb-theme sb-required">*</span></dt>
+				<dd><dd><textarea name="content" class="sb-theme sb-input-post-edit">{content}</textarea></dd></dd>		
+			</dl>	
+			<button name="updatePost" type="submit" value="updatePost" >Update Post</button>
+			<button name="deletePost" type="submit" value="deletePost" >Delete Post</button>
+		</form>
+		<p><a class="sb-theme sb-button sb-default sb-link" href="/posts/{postId}">Read more</a></p>
+		<p>
+			<span class="sb-theme sb-badge">Comments<label>{totalComments}</label></span>
+			<a class="sb-theme sb-button sb-default sb-link sb-logged" href="/posts/{idPost}">Add comment</a>
+			<a class="sb-theme sb-button sb-default sb-link sb-login" href="/login">Please login to add a comment</a>
+		</p>
+	</div>	
+</div>

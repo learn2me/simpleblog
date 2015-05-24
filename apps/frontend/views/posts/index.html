@@ -1,0 +1,7 @@
+{% if post is defined %}
+{{ partial("partials/single-posts") }}
+{{ partial("partials/comment-actions") }}
+{{ partial("partials/comments-list") }}
+{% else %}
+<p>The post doesn t exist</p>
+{% endif %}

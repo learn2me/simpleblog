@@ -1,0 +1,15 @@
+
+{% if comment is defined AND comment.idComment is defined %}
+<input type="hidden"  name="idPost" value="{{ comment.postId }}"/>
+<input type="hidden"  name="idComment" value="{{ comment.idComment }}"/>
+{% else %}
+<input type="hidden"  name="idPost" value="{{ idPost }}"/>
+{% endif %}
+	<dl>
+		{% set commentContent = "" %}
+		{% if comment is defined AND comment.content is defined %}
+		{% set commentContent = comment.content %}
+		{% endif %}
+		<dt>Comment<span class="sb-theme sb-required">*</span></dt>
+		<dd><textarea name="comment" class="sb-theme sb-input-comment-edit">{{ commentContent }}</textarea></dd>		
+	</dl>

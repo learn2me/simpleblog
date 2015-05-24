@@ -1,0 +1,8 @@
+{% if post is defined AND post.idPost is defined %}
+{% set postId = post.idPost %}
+{% else %}
+	{% if comment is defined AND comment.post is defined %}
+	{% set postId = comment.post.idPost %}
+	{% endif %}
+{% endif %}
+<p><a class="sb-theme sb-button sb-default sb-link" href="/posts/{{ postId }}">Read more</a></p>

@@ -1,0 +1,26 @@
+	<p>		
+		{% if user is defined AND user.isLoggedin() %}
+			{% if user.canAddPost() %}
+				<h4>New post</h4>
+				<form method="post" action="/add-post" autocomplete="off" class="sb-theme sb-form-comment-edit">	
+				<input type="hidden" data-input-role="csrf-token" name="{{ formTokenKey }}" value="{{ formToken }}"/>	
+				{% if member.referer is defined %}
+				<input name="referer" type="hidden" value="{{ member.referer }}"/>
+				{% endif %}	
+				<dl>
+					<dt>Title<span class="sb-theme sb-required">*</span></dt>
+					<dd><input type="text" name="title" class="sb-theme sb-input-title" value=""/></dd>		
+				</dl>
+				<dl>
+					<dt>Excerpt<span class="sb-theme sb-required">*</span></dt>
+					<dd><input type="text" name="excerpt" class="sb-theme sb-input-title" value=""/></dd>		
+				</dl>
+				<dl>
+					<dt>Content<span class="sb-theme sb-required">*</span></dt>
+					<dd><dd><textarea name="content" class="sb-theme sb-input-post-edit"></textarea></dd></dd>		
+				</dl>	
+					<button name="addPost" type="submit" value="addPost" >Add Post</button>
+				</form>
+			{% endif %}
+		{% endif %}
+	</p>

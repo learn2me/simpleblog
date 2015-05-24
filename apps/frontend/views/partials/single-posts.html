@@ -1,0 +1,39 @@
+	<hr>
+	<p>Tag<a href="/tag-date/{{ post.dateCategoryLink }}" class="sb-theme sb-tag-category">{{ post.dateCategory }}</a></p>
+	{% set canEdit = false %}
+	{% if user is defined %}
+		{% if user.canEditPost() AND user.isTheAuthor(post.authorId) %}
+			{% set canEdit = true %}
+		{% endif %}
+	{% endif %}	
+	{% if canEdit == true %}
+	<form method="post" action="/update-post" autocomplete="off" class="sb-theme sb-form-comment-edit">	
+		<input type="hidden" data-input-role="csrf-token" name="{{ formTokenKey }}" value="{{ formToken }}"/>	
+		<input type="hidden"  name="idPost" value="{{ post.idPost }}"/>	
+		{% if member.referer is defined %}
+		<input name="referer" type="hidden" value="{{ member.referer }}"/>
+		{% endif %}	
+		<dl>
+			<dt>Title<span class="sb-theme sb-required">*</span></dt>
+			<dd><input type="text" name="title" class="sb-theme sb-input-title" value="{{ post.title }}"/></dd>		
+		</dl>
+		<dl>
+			<dt>Excerpt<span class="sb-theme sb-required">*</span></dt>
+			<dd><input type="text" name="excerpt" class="sb-theme sb-input-title" value="{{ post.excerpt }}"/></dd>		
+		</dl>
+		<dl>
+			<dt>Content<span class="sb-theme sb-required">*</span></dt>
+			<dd><dd><textarea name="content" class="sb-theme sb-input-post-edit">{{ post.content }}</textarea></dd></dd>		
+		</dl>	
+		<button name="updatePost" type="submit" value="updatePost" >Update Post</button>
+		<button name="deletePost" type="submit" value="deletePost" >Delete Post</button>
+	</form>
+			
+	
+	{% else %}
+	<h1 class="sb-theme sb-post-title">{{ post.title }}</h1>
+	<h2 class="sb-theme sb-post-author">By<label>{{ post.authorName }}</label></h2>
+	<h3 class="sb-theme sb-post-date">Posted on<label>{{ post.prettyDateTime }}</label></h3>
+	<div class="sb-theme sb-post-content">{{ post.content }}</div>
+	{% endif %}
+

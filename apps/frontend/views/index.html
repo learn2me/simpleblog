@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ siteTitle }}</title>
+	</head>
+	<body>
+		<?php echo $this->getContent(); ?>
+		<div class="sb-hide" style="display:none">
+		{{ partial("partials/comment-template") }}
+		{{ partial("partials/post-template") }}
+		</div>
+		<script>
+			var member = null;
+			{% if user is defined %}
+			member = {
+				idMember:{{ user.getIdMember()}},
+				name:"{{ user.getNicename()}}"
+			};
+			{% endif %}
+		</script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="/js/main.js"></script>
+	</body>
+</html>

@@ -1,0 +1,10 @@
+	<p>
+		<span class="sb-theme sb-badge">Comments<label>{{ post.comments|length }}</label></span>
+		{% if user is defined AND user.isLoggedin() %}
+			{% if user.canAddComment() %}
+		<a class="sb-theme sb-button sb-default sb-link" href="/posts/{{ post.idPost }}">Add comment</a>
+			{% endif %}
+		{% else %}
+		<a class="sb-theme sb-button sb-default sb-link" href="/login">Please login to add a comment</a>
+		{% endif %}
+	</p>

@@ -1,0 +1,13 @@
+{% if posts is defined AND posts is iterable %}
+<div class="sb-theme sb-posts-list">
+{{ partial("partials/posts-list") }}
+</div>
+{% if showViewLoadMore is defined %}
+{{ partial("partials/load-more-action") }}
+{% endif %}
+{% else %}
+{% if tagDate is defined AND tagDateLink is defined %}
+<p>Tag<a href="/tag-date/{{ tagDateLink }}" class="sb-theme sb-tag-category">{{ tagDate }}</a></p>
+{% endif %}
+<p>No posts</p>
+{% endif %}

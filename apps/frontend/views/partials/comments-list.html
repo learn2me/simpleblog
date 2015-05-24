@@ -1,0 +1,29 @@
+<h4><span>Comments</span></h4>
+<div class="sb-theme sb-comments-list">
+{% if post.comments is defined AND post.comments is iterable %}
+		{% for comment in post.comments %}
+		<div class="sb-theme sb-comment-container">
+			<hr>
+			{% if comment.post is defined %}		
+			<h2>{{ comment.post.title }}</h2>
+			{{ partial("partials/read-more-action") }}
+			{% endif %}
+			<h4 class="sb-theme sb-comment-author">By<label>{{ comment.authorName }}</label></h4>
+			<h5 class="sb-theme sb-comment-date">Posted on<label>{{ comment.prettyDateTime }}</label></h5>
+			{% if user is defined AND user.canEditComment() AND user.isTheAuthor(comment.authorId)%}
+			<div class="sb-theme sb-comment-content">
+				<form method="post" action="/update-comments/{{ comment.idComment }}" autocomplete="off" class="sb-theme sb-form-comment-edit">	
+					<input type="hidden"  name="{{ formTokenKey }}" value="{{ formToken }}"/>
+					{{ partial("partials/fields-comment-form") }}
+					<button name="updateComment" type="submit" value="updateComment" >Update</button>
+					<button name="deleteComment" type="submit" value="deleteComment" >Delete</button>
+				</form>
+			</div>
+			{% else %}
+				<div class="sb-theme sb-comment-content">{{comment.content}}</div>
+			{% endif %}
+		</div>
+		{% endfor %}
+		{{ partial("partials/load-more-action") }}
+{% endif %}
+</div>

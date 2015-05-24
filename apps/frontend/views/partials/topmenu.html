@@ -1,0 +1,10 @@
+<div class="menu">
+{% if topMenu is defined %}
+<ul class="sb-theme sb-top-nav">
+{% for menu in topMenu %}
+	{% if menu.active %}
+	<li><a href="{{ menu.link }}">{{ menu.title }}</a></li>
+	{% endif %}
+{% endfor %}
+</ul>
+{% endif %}

@@ -1,0 +1,25 @@
+<div id="sb-comment-template">
+	<div class="sb-theme sb-comment-container">
+		<hr>		
+		<h4 class="sb-theme sb-comment-author">By<label>{name}</label></h4>
+		<h5 class="sb-theme sb-comment-date">Posted on<label>{date}</label></h5>
+		<div class="sb-theme sb-comment-content">{content}</div>
+	</div>	
+	<div class="sb-theme sb-comment-container-edit">
+		<hr>		
+		<h4 class="sb-theme sb-comment-author">By<label>{name}</label></h4>
+		<h5 class="sb-theme sb-comment-date">Posted on<label>{date}</label></h5>
+		<form method="post" action="/update-comments/{idComment}" autocomplete="off" class="sb-theme sb-form-comment-edit">	
+			<input type="hidden" data-input-role="csrf-token" name="{formTokenKey}" value="{formToken}"/>
+			<input type="hidden"  name="idPost" value="{idPost}"/>
+			<input type="hidden"  name="idComment" value="{idComment}"/>
+			<dl>
+				<dt>Comment<span class="sb-theme sb-required">*</span></dt>
+				<dd><textarea name="comment" class="sb-theme sb-input-comment-edit">{content}</textarea></dd>		
+			</dl>
+			<button name="updateComment" type="submit" value="updateComment" >Update</button>
+			<button name="deleteComment" type="submit" value="deleteComment" >Delete</button>
+		</form>
+	</div>
+</div>
+		

@@ -1,0 +1,96 @@
+<?php
+
+use Phalcon\Mvc\Application;
+
+define('APP_PATH', realpath('..') . '/'); 
+define('PUBLIC_PATH', __DIR__ );
+include_once('lib/common.php');
+detect_environment();
+
+try {
+
+         \Phalcon\Mvc\Model::setup([
+			'notNullValidations' => false
+		]);
+
+     /**
+	 * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
+	 */
+	$di = new \Phalcon\DI\FactoryDefault();
+
+	/**
+	 * Registering a router
+	 */
+	$di->set('router', require __DIR__.'/../config/routes.php');
+
+	/**
+	 * The URL component is used to generate all kind of urls in the application
+	 */
+	$di->set('url', function() {
+		$url = new \Phalcon\Mvc\Url();
+		$url->setBaseUri('/'); // If the project is in the Document Root folder, setBaseUri to '/'
+		return $url;
+	});
+
+	/**
+	 * Start the session the first time some component request the session service
+	 */
+	$di->set('session', function() {
+		$session = new \Phalcon\Session\Adapter\Files();
+		$session->start();
+		return $session;
+	});
+               
+	//Set the views cache service
+	$di->set('viewCache', function(){
+
+		//Cache data for one day by default
+		$frontCache = new Phalcon\Cache\Frontend\Output(array(
+			"lifetime" => 1
+		));
+
+		//File backend settings
+		$cache = new Phalcon\Cache\Backend\File($frontCache, array(
+			"cacheDir" => __DIR__."/../var/cache/",
+		));
+
+		return $cache;
+	});
+
+	/**
+	 * Main logger file
+	 */
+	$di->set('logger', function() {
+		return new \Phalcon\Logger\Adapter\File(__DIR__.'/../var/logs/'.date('LOGd').'H'.date('H').'.log');
+	}, true);
+
+	/**
+	 * Error handler
+	 */
+	set_error_handler(function($errno, $errstr, $errfile, $errline) use ($di)
+	{
+		if (!(error_reporting() & $errno)) {
+			return;
+		}
+
+		$di->getFlash()->error($errstr);
+		$di->getLogger()->log($errstr.' '.$errfile.':'.$errline, Phalcon\Logger::ERROR);
+
+		return true;
+	});
+	
+    /**
+     * Handle the request
+     */
+    $application = new Application($di);
+
+    /**
+     * Include modules
+     */
+    require __DIR__ . '/../config/modules.php';
+
+    echo $application->handle()->getContent();
+
+} catch (Exception $e) {
+    echo $e->getMessage();
+}

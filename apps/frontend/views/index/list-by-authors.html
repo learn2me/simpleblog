@@ -1,0 +1,8 @@
+<div class="sb-theme sb-members-list">
+{% if authorsList is defined AND authorsList is iterable %}
+<ul class="sb-theme sb-top-nav">
+{% for author in authorsList %}
+	<li><a href="/member-posts/{{ author.idMember }}">{{ author.name }}</a>{{ author.totalPosts }}</li>
+{% endfor %}
+</ul>
+{% endif %}

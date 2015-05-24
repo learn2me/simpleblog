@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Phalcon PHP Framework</title>
+	</head>
+	<body>
+		{# Flash message #}
+		{% if message is defined %}
+		<div class="sb*theme sb-message sb-message-{{message.type}}">{{ message.text }}</div>
+		{% set dummy = message.remove('type') %}
+		{% set dummy = message.remove('text') %}
+		{% endif %}
+		{{ partial("partials/topmenu") }}
+		{# If we are in login page don t include twice login form #}
+		{% if loginPage is not defined %}
+		{{ partial("partials/login-form") }}
+		{% endif %}
+		{{ partial("partials/add-post-form") }}
+		{{ get_content() }}
+	</body>
+</html>

@@ -1,0 +1,29 @@
+{% if user is defined AND  user.isLoggedin() %}
+	<form method="post" action="/login" autocomplete="off" class="sb-theme sb-form-comment-edit">
+	<input type="hidden"  name="{{ formTokenKey }}" value="{{ formToken }}"/>	
+	{% if member.referer is defined %}
+	<input name="referer" type="hidden" value="{{ member.referer }}"/>
+	{% endif %}	
+	<dl>
+		<dt>Logged as {{ user.getNicename() }}</span></dt>
+		<dd><button name="logout" type="submit" value="logout" >Logout</button></dd>		
+	</dl>	
+		
+	</form>
+{% else %}
+	<form method="post" action="/login" autocomplete="off" class="sb-theme sb-form-comment-edit">	
+	<input type="hidden"  name="{{ formTokenKey }}" value="{{ formToken }}"/>	
+	{% if member.referer is defined %}
+	<input name="referer" type="hidden" value="{{ member.referer }}"/>
+	{% endif %}	
+	<dl>
+		<dt>Email<span class="sb-theme sb-required">*</span></dt>
+		<dd><input type="text" name="email" class="sb-theme sb-input-email" value="me@example.com"/></dd>		
+	</dl>
+	<dl>
+		<dt>Password<span class="sb-theme sb-required">*</span></dt>
+		<dd><input type="password" name="password" class="sb-theme sb-input-password" value="a" /></dd>		
+	</dl>	
+		<button name="login" type="submit" value="login" >Login</button>
+	</form>
+{% endif %}

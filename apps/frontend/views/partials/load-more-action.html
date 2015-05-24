@@ -1,0 +1,13 @@
+{% set currentidPost="" %}
+{% if idPost is defined %}
+{% set currentidPost=' data-postId="' ~ idPost ~'" ' %}
+{% else %}
+	{% if comment is defined AND comemnt.postId is defined %}
+	{% set currentidPost=' data-postId="' ~ comemnt.postId ~'" ' %}
+	{% endif %}
+{% endif %}
+{% set dateData="" %}
+{% if dateTag is defined %}
+{% set dateData=' data-date-tag="' ~ dateTag ~'" ' %}
+{% endif %}
+<button class="sb-theme sb-button sb-default sb-load-more-items" data-target="{{ loadTarget }}" data-current-page="{{currentPage}}" {{ currentidPost }} {{ dateData }}>Load more</button>
